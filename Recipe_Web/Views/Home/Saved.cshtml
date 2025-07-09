@@ -1,0 +1,64 @@
+﻿@model List<Food_Recipe.Domain.Models.Recipe>
+
+@{
+    ViewData["Title"] = "Saved Recipes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center mt-4 mb-4">Saved Recipes ❤️</h2>
+
+@if (!Model.Any())
+{
+    <p class="text-center mt-4 mb-4">No saved recipes.</p>
+}
+else
+{
+    <div class="recipe-grid">
+        @foreach (var recipe in Model)
+        {
+            <div class="card recipe-card">
+                @* <img src="@recipe.Img" alt="@recipe.Name" /> *@
+                <img src="@Url.Content("~/" + recipe.Img)" alt="@recipe.Name" />
+                <h3>@recipe.Name (@recipe.Category)</h3>
+                <p class="rating">⭐ @recipe.Rating / 5</p>
+                <p>@recipe.Description</p>
+                <div class="details-section">
+                <h4>Ingredients:</h4>
+                <ul>
+                    @foreach (var ing in recipe.Ingredients)
+                    {
+                        <li>@ing</li>
+                    }
+                </ul>
+
+                <h4>Instructions:</h4>
+                <ol>
+                    @foreach (var step in recipe.Instructions)
+                    {
+                        <li>@step</li>
+                    }
+                </ol>
+                    @if (recipe.Nutrition != null)
+                    {
+                        <h4>Nutrition</h4>
+                        <ul>
+                            <li>Calories: @recipe.Nutrition.Calories</li>
+                            <li>Protein: @recipe.Nutrition.Protein</li>
+                            <li>Carbs: @recipe.Nutrition.Carbs</li>
+                            <li>Fat: @recipe.Nutrition.Fat</li>
+                        </ul>
+                    }
+                    </div>
+
+                <div class="bottom-buttons">
+                    <form asp-action="RemoveSaved" method="post">
+                        <input type="hidden" name="id" value="@recipe.Id" />
+                        <button type="submit" class="action-btn">❌ Unsave</button>
+                    </form>
+
+                </div>
+            </div>
+        }
+    </div>
+}
+

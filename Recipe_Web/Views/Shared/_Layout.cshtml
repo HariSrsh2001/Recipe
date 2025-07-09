@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Food_Recipe</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Food_Recipe.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <img src="~/images/Delicious_Recipes.png" alt="Logo" />
+        <h1>Delicious Recipes</h1>
+        <nav id="headerNav">
+            <button class="recipe-card " onclick="location.href='@Url.Action("All", "Home")'">All 🍽️</button>
+            <button class="recipe-card" onclick="location.href='@Url.Action("Veg", "Home")'">Veg 🥦</button>
+            <button class="recipe-card" onclick="location.href='@Url.Action("NonVeg", "Home")'">Non-Veg 🍗</button>
+            <button class="recipe-card" onclick="location.href='@Url.Action("Beverages", "Home")'">Beverages 🍹</button>
+            <button class="recipe-card" onclick="location.href='@Url.Action("Saved", "Home")'">Saved ❤️</button>
+            <button class="recipe-card" onclick="location.href='@Url.Action("Favorite", "Home")'">Favorites 🌟</button>
+            <button class="recipe-card" onclick="location.href='@Url.Action("MyRecipes", "Home")'">My Recipes ✍️</button>
+            <button class="btn btn-outline-danger recipe-card" onclick="location.href='@Url.Action("Logout", "User")'">Logout</button>
+        </nav>
+    </header>
+
+    <main role="main" class="container mt-4">
+        @RenderBody()
+    </main>
+
+    <!-- ✅ Footer Section -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="mb-1">© Delicious Recipes. All rights reserved.</p>
+            @* <small>Made with ❤️ using ASP.NET Core MVC</small> *@
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const msg = document.getElementById('welcomeMessage');
+            if (msg) {
+                msg.style.display = 'inline';
+                setTimeout(() => {
+                    msg.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

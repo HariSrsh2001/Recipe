@@ -1,0 +1,210 @@
+﻿@model List<Food_Recipe.Domain.Models.PendingUserRecipe>
+
+@{
+    ViewData["Title"] = "My Recipes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var approvedRecipes = ViewBag.ApprovedRecipes as List<Food_Recipe.Domain.Models.UserRecipe>;
+}
+<div></div>
+<style>
+    .recipe-section {
+        max-width: 700px;
+        margin: 30px auto;
+        background-color: #f9f9f9;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .recipe-form input,
+    .recipe-form select,
+    .recipe-form textarea,
+    .recipe-form button {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-bottom: 16px;
+    }
+
+    .recipe-form button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    .card.recipe-card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+    }
+
+    .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    .badge-pending {
+        background-color: #ffc107;
+        color: #000;
+        padding: 4px 10px;
+        border-radius: 5px;
+    }
+
+    .badge-approved {
+        background-color: #28a745;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 5px;
+    }
+
+    .badge-rejected {
+        background-color: #dc3545;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 5px;
+    }
+
+    .details-section {
+        margin-top: 15px;
+    }
+
+    /* .recipe-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin: 40px 20px;
+    } */
+</style>
+
+<section class="recipe-section">
+    <h2>Submit a New Recipe</h2>
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
+
+    <form asp-action="AddMyRecipe" method="post" enctype="multipart/form-data" class="recipe-form">
+        <input type="text" name="name" placeholder="Recipe Name" required />
+        <input type="file" name="imageFile" accept=".png,.jpg,.jpeg,.webp" required />
+        <select name="category" required>
+            <option value="">Select Category</option>
+            <option value="veg">Veg</option>
+            <option value="nonveg">Non-Veg</option>
+            <option value="beverages">Beverages</option>
+        </select>
+        <textarea name="ingredients" placeholder="Ingredients (comma-separated)" required></textarea>
+        <textarea name="instructions" placeholder="Instructions (comma-separated)" required></textarea>
+        <input type="number" name="rating" placeholder="Rating (1 to 5)" min="1" max="5" required />
+        <input type="text" name="description" placeholder="Short Description" />
+        <button type="submit">Add Recipe</button>
+    </form>
+</section>
+
+<h1 class="text-center my-4 fw-bold">My Recipes</h1>
+
+@if (!Model.Any())
+{
+    <p class="text-center mt-4 mb-4">You have not any submitted recipes.</p>
+}
+else
+{
+    <div class="recipe-grid">
+        @foreach (var recipe in Model)
+        {
+            var badgeClass = recipe.IsApproved ? "badge-approved"
+            : recipe.IsRejected ? "badge-rejected"
+            : "badge-pending";
+
+            var badgeText = recipe.IsApproved ? "Approved"
+            : recipe.IsRejected ? "Rejected"
+            : "Pending";
+
+            <div class="card recipe-card">
+                <span class="badge @badgeClass">@badgeText</span>
+                <img src="@recipe.Img" alt="@recipe.Name" />
+                <h3>@recipe.Name (@recipe.Category)</h3>
+                <p>@recipe.Description</p>
+                <p class="rating">⭐ @recipe.Rating / 5</p>
+
+                <div class="details-section">
+                    <h4>Ingredients:</h4>
+                    <ul>
+                        @foreach (var ing in recipe.Ingredients?.Split(',') ?? Array.Empty<string>())
+                        {
+                            <li>@ing.Trim()</li>
+                        }
+                    </ul>
+
+                    <h4>Instructions:</h4>
+                    <ol>
+                        @foreach (var step in recipe.Instructions?.Split(',') ?? Array.Empty<string>())
+                        {
+                            <li>@step.Trim()</li>
+                        }
+                    </ol>
+                </div>
+
+                @if (!recipe.IsApproved)
+                {
+                    <a asp-action="EditRecipe" asp-route-id="@recipe.Id"
+                    class="btn btn-sm btn-outline-secondary me-1">✏️ Edit</a>
+                   
+
+                    <form asp-action="SubmitForApproval" method="post" class="d-inline">
+                         <input type="hidden" name="id" value="@recipe.Id" />
+                    <button type="submit" class="btn btn-sm btn-primary d-block mx-auto">📤 Submit for Approval</button>
+                    </form>
+
+                    <form asp-action="DeleteMyRecipe" method="post" class="d-inline">
+                        <input type="hidden" name="id" value="@recipe.Id" />
+                    <button class="btn btn-sm btn-danger d-block mx-auto">🗑️ Delete</button>
+                    </form>
+                }
+            </div>
+        }
+    </div>
+}
+
+@if (approvedRecipes != null && approvedRecipes.Any())
+{
+    <h2 class="text-center my-4 fw-bold">Approved Recipes</h2>
+    <div class="recipe-grid">
+        @foreach (var recipe in approvedRecipes)
+        {
+            <div class="card recipe-card">
+                <span class="badge badge-approved">Approved</span>
+                <img src="@recipe.Img" alt="@recipe.Name" />
+                <h3>@recipe.Name (@recipe.Category)</h3>
+                <p>@recipe.Description</p>
+                <p class="rating">⭐ @recipe.Rating / 5</p>
+
+                <div class="details-section">
+                    <h4>Ingredients:</h4>
+                    <ul>
+                        @foreach (var ing in recipe.Ingredients?.Split(',') ?? Array.Empty<string>())
+                        {
+                            <li>@ing.Trim()</li>
+                        }
+                    </ul>
+
+                    <h4>Instructions:</h4>
+                    <ol>
+                        @foreach (var step in recipe.Instructions?.Split(',') ?? Array.Empty<string>())
+                        {
+                            <li>@step.Trim()</li>
+                        }
+                    </ol>
+                </div>
+            </div>
+        }
+    </div>
+}

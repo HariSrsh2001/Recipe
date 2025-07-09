@@ -1,0 +1,388 @@
+﻿//[
+//  {
+//    "id": 1,
+//    "category": "veg",
+//    "name": "Classic Spaghetti",
+//    "img": "images/Classic_Spaghetti.webp",
+//    "description": "Classic pasta with tomato sauce and basil.",
+//    "rating": 4,
+//    "nutrition": {
+//      "calories": 350,
+//      "protein": "12g",
+//      "carbs": "60g",
+//      "fat": "5g"
+//    },
+//    "ingredients": [ "200g spaghetti", "2 cups tomato sauce", "Basil", "2 garlic cloves", "Salt & pepper" ],
+//    "instructions": [ "Boil pasta", "Heat sauce with garlic", "Combine and garnish" ]
+//  },
+//  {
+//    "id": 2,
+//    "category": "veg",
+//    "name": "Veggie Stir Fry",
+//    "img": "images/Veggie_Stir_Fry.webp",
+//    "description": "Fresh veggies stir-fried in soy sauce with Garlic.",
+//    "rating": 3,
+//    "nutrition": {
+//      "calories": 280,
+//      "protein": "10g",
+//      "carbs": "35g",
+//      "fat": "7g"
+//    },
+//    "ingredients": [ "Broccoli", "Bell peppers", "Carrots", "Soy sauce", "Garlic" ],
+//    "instructions": [ "Sauté garlic", "Add veggies", "Add soy sauce", "Cook & serve" ]
+//  },
+//  {
+//    "id": 3,
+//    "category": "veg",
+//    "name": "Quinoa Salad",
+//    "img": "images/Quinoa_Salad.webp",
+//    "description": "Healthy quinoa with Healthy veggies and Lemon juice.",
+//    "rating": 4,
+//    "nutrition": {
+//      "calories": 320,
+//      "protein": "11g",
+//      "carbs": "50g",
+//      "fat": "6g"
+//    },
+//    "ingredients": [ "Cooked quinoa", "Tomatoes", "Cucumbers", "Olive oil", "Lemon juice" ],
+//    "instructions": [ "Mix ingredients", "Season", "Serve chilled" ]
+//  },
+//  {
+//    "id": 4,
+//    "category": "veg",
+//    "name": "Paneer Masala",
+//    "img": "images/Paneer_Butter_Masala.webp",
+//    "description": "Creamy tomato based paneer curry with spices.",
+//    "rating": 5,
+//    "nutrition": {
+//      "calories": 450,
+//      "protein": "20g",
+//      "carbs": "25g",
+//      "fat": "30g"
+//    },
+//    "ingredients": [ "Paneer", "Tomato puree", "Butter", "Cream", "Spices" ],
+//    "instructions": [ "Cook tomato pure", "Add spices and paneer", "Simmer and add cream" ]
+//  },
+//  {
+//    "id": 5,
+//    "category": "veg",
+//    "name": "Vegetable Biryani",
+//    "img": "images/Vegetable_Biryani.webp",
+//    "description": "Aromatic Basmati rice with mixed vegetables.",
+//    "rating": 5,
+//    "nutrition": {
+//      "calories": 500,
+//      "protein": "15g",
+//      "carbs": "70g",
+//      "fat": "15g"
+//    },
+//    "ingredients": [ "Basmati rice", "Mixed vegetables", "Biryani spices", "Yogurt", "Onions" ],
+//    "instructions": [ "Cook rice", "Prepare vegetables", "Layer and cook together" ]
+//  },
+//  {
+//    "id": 6,
+//    "category": "veg",
+//    "name": "Stuffed Bell Peppers",
+//    "img": "images/Stuffed_Bell_Peppers.webp",
+//    "description": "Bell peppers stuffed with rice and veggies.",
+//    "rating": 4,
+//    "nutrition": {
+//      "calories": 400,
+//      "protein": "15g",
+//      "carbs": "45g",
+//      "fat": "8g"
+//    },
+//    "ingredients": [ "Bell peppers", "Cooked rice", "Mixed veggies", "Cheese", "Spices" ],
+//    "instructions": [ "Prepare filling", "Stuff peppers", "Bake until soft" ]
+//  },
+//  {
+//    "id": 7,
+//    "category": "veg",
+//    "name": "Mushroom Risotto",
+//    "img": "images/Mushroom_Risotto.webp",
+//    "description": "Creamy mushroom risotto Arborio rice,Parmesan.",
+//    "rating": 5,
+//    "nutrition": {
+//      "calories": 420,
+//      "protein": "12g",
+//      "carbs": "55g",
+//      "fat": "10g"
+//    },
+//    "ingredients": [ "Arborio rice", "Mushrooms", "Parmesan", "Onions", "White wine" ],
+//    "instructions": [ "Sauté onions & mushrooms", "Add rice and wine", "Add broth gradually and stir" ]
+//  },
+//  {
+//    "id": 8,
+//    "category": "veg",
+//    "name": "Cauliflower Tacos",
+//    "img": "images/Cauliflower_Tacos.webp",
+//    "description": "Spiced roasted cauliflower tacos with Avocado.",
+//    "rating": 4,
+//    "nutrition": {
+//      "calories": 300,
+//      "protein": "8g",
+//      "carbs": "40g",
+//      "fat": "6g"
+//    },
+//    "ingredients": [ "Cauliflower", "Taco shells", "Spices", "Avocado", "Salsa" ],
+//    "instructions": [ "Roast cauliflower with spices", "Assemble tacos with toppings", "Serve with salsa" ]
+//  },
+
+//  {
+//    "id": 9,
+//    "category": "nonveg",
+//    "name": "Grilled Chicken",
+//    "img": "images/Grilled_Chicken.webp",
+//    "description": "Juicy grilled chicken with herbs.",
+//    "rating": 5,
+//    "nutrition": {
+//      "calories": 400,
+//      "protein": "35g",
+//      "carbs": "0g",
+//      "fat": "20g"
+//    },
+//    "ingredients": [ "Chicken breasts", "Herbs", "Olive oil", "Garlic", "Salt" ],
+//    "instructions": [ "Marinate chicken", "Grill until cooked", "Serve hot" ]
+//  },
+//  {
+//    "id": 10,
+//    "category": "nonveg",
+//    "name": "Fish Curry",
+//    "img": "images/Fish_curry.webp",
+//    "description": "Spicy and tangy fish curry.",
+//    "rating": 4,
+//    "nutrition": {
+//      "calories": 350,
+//      "protein": "30g",
+//      "carbs": "10g",
+//      "fat": "15g"
+//    },
+//    "ingredients": [ "Fish", "Coconut milk", "Spices", "Tomatoes", "Onions" ],
+//    "instructions": [ "Prepare masala", "Add fish and cook", "Add coconut milk and simmer" ]
+//  },
+//  {
+//    "id": 11,
+//    "category": "nonveg",
+//    "name": "Beef Stew",
+//    "img": "images/Beef_Stew.webp",
+//    "description": "Tender beef in rich gravy.",
+//    "rating": 5,
+//    "nutrition": {
+//      "calories": 550,
+//      "protein": "40g",
+//      "carbs": "25g",
+//      "fat": "30g"
+//    },
+//    "ingredients": [ "Beef", "Potatoes", "Carrots", "Onions", "Spices" ],
+//    "instructions": [ "Brown beef", "Add vegetables and broth", "Simmer until tender" ]
+//  },
+//  {
+//    "id": 12,
+//    "category": "nonveg",
+//    "name": "Chicken Biryani",
+//    "img": "images/Chicken_Biryani.webp",
+//    "description": "Fragrant rice with spicy chicken.",
+//    "rating": 5,
+//    "nutrition": {
+//      "calories": 600,
+//      "protein": "40g",
+//      "carbs": "75g",
+//      "fat": "25g"
+//    },
+//    "ingredients": [ "Basmati rice", "Chicken", "Yogurt", "Spices", "Onions" ],
+//    "instructions": [ "Marinate chicken", "Cook rice", "Layer and cook together" ]
+//  },
+//  {
+//    "id": 13,
+//    "category": "nonveg",
+//    "name": "Egg Curry",
+//    "img": "images/Egg_Curry.webp",
+//    "description": "Boiled eggs in spicy curry with onion,tomato.",
+//    "rating": 4,
+//    "nutrition": {
+//      "calories": 320,
+//      "protein": "25g",
+//      "carbs": "15g",
+//      "fat": "18g"
+//    },
+//    "ingredients": [ "Eggs", "Tomato gravy", "Spices", "Onions", "Garlic" ],
+//    "instructions": [ "Boil eggs", "Prepare gravy", "Add eggs and simmer" ]
+//  },
+//  {
+//    "id": 14,
+//    "category": "nonveg",
+//    "name": "Shrimp Scampi",
+//    "img": "images/Shrimp_Scampi.webp",
+//    "description": "Garlic butter shrimp pasta with combine and garnish.",
+//    "rating": 5,
+//    "nutrition": {
+//      "calories": 450,
+//      "protein": "30g",
+//      "carbs": "50g",
+//      "fat": "15g"
+//    },
+//    "ingredients": [ "Shrimp", "Garlic", "Butter", "Pasta", "Parsley" ],
+//    "instructions": [ "Cook pasta", "Sauté shrimp in garlic butter", "Combine and garnish" ]
+//  },
+//  {
+//    "id": 15,
+//    "category": "nonveg",
+//    "name": "Turkey Meatballs",
+//    "img": "images/Turkey_Meatballs.webp",
+//    "description": "Lean turkey meatballs in tomato sauce.",
+//    "rating": 4,
+//    "nutrition": {
+//      "calories": 380,
+//      "protein": "35g",
+//      "carbs": "10g",
+//      "fat": "15g"
+//    },
+//    "ingredients": [ "Ground turkey", "Breadcrumbs", "Egg", "Tomato sauce", "Spices" ],
+//    "instructions": [ "Mix ingredients", "Form meatballs", "Cook in sauce" ]
+//  },
+//  {
+//    "id": 16,
+//    "category": "nonveg",
+//    "name": "Pork Ribs",
+//    "img": "images/Pork_Ribs.webp",
+//    "description": "Slow cooked pork ribs with BBQ sauce.",
+//    "rating": 5,
+//    "nutrition": {
+//      "calories": 600,
+//      "protein": "50g",
+//      "carbs": "15g",
+//      "fat": "40g"
+//    },
+//    "ingredients": [ "Pork ribs", "BBQ sauce", "Spices", "Honey" ],
+//    "instructions": [ "Marinate ribs", "Slow cook ribs", "Brush with BBQ sauce" ]
+//  },
+
+//  {
+//    "id": 17,
+//    "category": "beverages",
+//    "name": "Mango Smoothie",
+//    "img": "images/Mango_Smoothie.webp",
+//    "description": "Refreshing mango smoothie.",
+//    "rating": 5,
+//    "nutrition": {
+//      "calories": 200,
+//      "protein": "3g",
+//      "carbs": "45g",
+//      "fat": "2g"
+//    },
+//    "ingredients": [ "Mango", "Yogurt", "Honey", "Ice cubes" ],
+//    "instructions": [ "Blend all ingredients", "Serve chilled" ]
+//  },
+//  {
+//    "id": 18,
+//    "category": "beverages",
+//    "name": "Green Tea",
+//    "img": "images/Green_Tea.webp",
+//    "description": "Hot soothing green tea.",
+//    "rating": 4,
+//    "nutrition": {
+//      "calories": 0,
+//      "protein": "0g",
+//      "carbs": "0g",
+//      "fat": "0g"
+//    },
+//    "ingredients": [ "Green tea leaves", "Water", "Honey (optional)" ],
+//    "instructions": [ "Boil water", "Steep tea leaves", "Serve hot" ]
+//  },
+//  {
+//    "id": 19,
+//    "category": "beverages",
+//    "name": "Lemonade",
+//    "img": "images/Lemonade.webp",
+//    "description": "Tangy and sweet lemonade.",
+//    "rating": 5,
+//    "nutrition": {
+//      "calories": 120,
+//      "protein": "0g",
+//      "carbs": "30g",
+//      "fat": "0g"
+//    },
+//    "ingredients": [ "Lemon juice", "Sugar", "Water", "Mint leaves" ],
+//    "instructions": [ "Mix lemon juice and sugar", "Add water and ice", "Garnish with mint" ]
+//  },
+//  {
+//    "id": 20,
+//    "category": "beverages",
+//    "name": "Hot Chocolate",
+//    "img": "images/Hot_Chocolate.webp",
+//    "description": "Rich and creamy hot chocolate.",
+//    "rating": 4,
+//    "nutrition": {
+//      "calories": 250,
+//      "protein": "5g",
+//      "carbs": "35g",
+//      "fat": "10g"
+//    },
+//    "ingredients": [ "Cocoa powder", "Milk", "Sugar", "Whipped cream" ],
+//    "instructions": [ "Heat milk", "Mix cocoa and sugar", "Combine and top with cream" ]
+//  },
+//  {
+//    "id": 21,
+//    "category": "beverages",
+//    "name": "Iced Coffee",
+//    "img": "images/Iced_Coffee.webp",
+//    "description": "Chilled coffee with milk and ice.",
+//    "rating": 1,
+//    "nutrition": {
+//      "calories": 150,
+//      "protein": "4g",
+//      "carbs": "20g",
+//      "fat": "4g"
+//    },
+//    "ingredients": [ "Coffee", "Milk", "Ice cubes", "Sugar" ],
+//    "instructions": [ "Brew coffee", "Add milk and sugar", "Serve over ice" ]
+//  },
+//  {
+//    "id": 22,
+//    "category": "beverages",
+//    "name": "Chai Tea",
+//    "img": "images/Chai_Tea.webp",
+//    "description": "Spiced Indian tea with milk.",
+//    "rating": 3,
+//    "nutrition": {
+//      "calories": 120,
+//      "protein": "2g",
+//      "carbs": "20g",
+//      "fat": "3g"
+//    },
+//    "ingredients": [ "Black tea", "Milk", "Spices", "Sugar" ],
+//    "instructions": [ "Boil water with spices", "Add tea and milk", "Simmer and serve" ]
+//  },
+//  {
+//    "id": 23,
+//    "category": "beverages",
+//    "name": "Cold Brew Coffee",
+//    "img": "images/Cold_Brew_Coffee.webp",
+//    "description": "Smooth cold brew coffee.",
+//    "rating": 5,
+//    "nutrition": {
+//      "calories": 5,
+//      "protein": "0g",
+//      "carbs": "0g",
+//      "fat": "0g"
+//    },
+//    "ingredients": [ "Coffee grounds", "Cold water", "Ice cubes" ],
+//    "instructions": [ "Steep coffee grounds in cold water 12h", "Strain", "Serve over ice" ]
+//  },
+//  {
+//    "id": 24,
+//    "category": "beverages",
+//    "name": "Strawberry Lemonade",
+//    "img": "images/Strawberry_Lemonade.webp",
+//    "description": "Fresh strawberry and lemon drink.",
+//    "rating": 4,
+//    "nutrition": {
+//      "calories": 130,
+//      "protein": "0g",
+//      "carbs": "32g",
+//      "fat": "0g"
+//    },
+//    "ingredients": [ "Strawberries", "Lemon juice", "Sugar", "Water" ],
+//    "instructions": [ "Blend strawberries", "Mix with lemon juice and sugar", "Add water and ice" ]
+//  }
+//]

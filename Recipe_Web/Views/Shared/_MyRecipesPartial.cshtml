@@ -1,0 +1,47 @@
+﻿@model List<Food_Recipe.Domain.Models.Recipe>
+
+<section class="recipe-section">
+    <h2>My Recipes</h2>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center mt-4 mb-4">You have not added any recipes.</p>
+    }
+    else
+    {
+        <div class="recipe-grid">
+            @foreach (var recipe in Model)
+            {
+                <div class="card">
+                    img src="@Url.Content("~/" + recipe.Img)" alt="@recipe.Name" />
+                    <h3>@recipe.Name (@recipe.Category)</h3>
+                    <p>@recipe.Description</p>
+                    <p class="rating">⭐ @recipe.Rating / 5</p>
+
+                    <div class="details-section">
+                        <h4>Ingredients:</h4>
+                        <ul>
+                            @foreach (var ing in recipe.Ingredients)
+                            {
+                                <li>@ing</li>
+                            }
+                        </ul>
+
+                        <h4>Instructions:</h4>
+                        <ol>
+                            @foreach (var step in recipe.Instructions)
+                            {
+                                <li>@step</li>
+                            }
+                        </ol>
+                    </div>
+
+                    <form asp-action="DeleteMyRecipe" method="post">
+                        <input type="hidden" name="name" value="@recipe.Name" />
+                        <button type="submit" class="btn btn-danger mt-2">Delete</button>
+                    </form>
+                </div>
+            }
+        </div>
+    }
+</section>

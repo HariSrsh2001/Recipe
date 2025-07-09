@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-image: url('/Images/Register.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .register-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            width: 100%;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .password-hint {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Register</h2>
+
+        @* Show error message if present *@
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger" id="errorMessage">@TempData["Error"]</div>
+            <script>
+                setTimeout(() => {
+                    const err = document.getElementById('errorMessage');
+                    if (err) err.remove();
+                }, 3000);
+            </script>
+        }
+
+        @* Show success message and redirect after 3 seconds *@
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">@TempData["Success"]</div>
+            <script>
+                setTimeout(() => {
+                    window.location.href = '@Url.Action("Login", "User")';
+                }, 3000);
+            </script>
+        }
+
+        <form asp-action="Register" method="post" onsubmit="return validatePasswords();">
+            <input id="Username" name="Username" placeholder="Username" class="form-control" required />
+            <input id="Email" name="Email" placeholder="Email" type="email" class="form-control" required />
+            <input id="Password" name="Password" placeholder="Password" type="password" class="form-control" required />
+            <input id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" type="password" class="form-control" required />
+
+            <div id="passwordMismatch" class="text-danger mb-2" style="display:none;">
+                Password and Confirm Password do not match.
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+
+        <p>
+            Already have an account?
+            <a asp-action="Login" class="text-decoration-none">Login here</a>
+        </p>
+    </div>
+
+    <script>
+        function validatePasswords() {
+            const pass = document.getElementById("Password").value;
+            const confirm = document.getElementById("ConfirmPassword").value;
+            const error = document.getElementById("passwordMismatch");
+
+            if (pass !== confirm) {
+                error.style.display = "block";
+                setTimeout(() => {
+                    error.style.display = "none";
+                }, 3000);
+                return false; // prevent form submission
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

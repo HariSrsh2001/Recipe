@@ -1,0 +1,232 @@
+﻿@model List<Food_Recipe.Domain.Models.Recipe>
+@{
+    ViewData["Title"] = "Beverages Recipes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center mt-4 mb-4">Beverages Recipes</h2>
+@if (!Model.Any())
+{
+    <p class="text-center mt-4 mb-4">No recipes found.</p>
+}
+else
+{
+    <div class="recipe-grid">
+        @foreach (var recipe in Model)
+        {
+            <div class="card recipe-card">
+                <img src="@Url.Content("~/" + recipe.Img)" alt="@recipe.Name" />
+                <h3>@recipe.Name</h3>
+                <p class="rating">⭐ @recipe.Rating / 5</p>
+                <p>@recipe.Description</p>
+                <div class="details-section">
+                    <h4>Ingredients:</h4>
+                    <ul>
+                        @foreach (var ing in recipe.Ingredients)
+                        {
+                            <li>@ing</li>
+                        }
+                    </ul>
+
+                    <h4>Instructions:</h4>
+                    <ol>
+                        @foreach (var step in recipe.Instructions)
+                        {
+                            <li>@step</li>
+                        }
+                    </ol>
+
+                    @if (recipe.Nutrition != null)
+                    {
+                        <h4>Nutrition</h4>
+                        <ul>
+                            <li>Calories: @recipe.Nutrition.Calories</li>
+                            <li>Protein: @recipe.Nutrition.Protein</li>
+                            <li>Carbs: @recipe.Nutrition.Carbs</li>
+                            <li>Fat: @recipe.Nutrition.Fat</li>
+                        </ul>
+                    }
+                </div>
+
+                <div class="bottom-buttons">
+                    <form asp-action="AddToSaved" method="post" class="d-inline">
+                        <input type="hidden" name="id" value="@recipe.Id" />
+                        <button type="submit" class="btn btn-sm btn-outline-primary">💾 Save</button>
+                    </form>
+
+                    <form asp-action="AddToFavorite" method="post" class="d-inline">
+                        <input type="hidden" name="id" value="@recipe.Id" />
+                        <button type="submit" class="btn btn-sm btn-outline-danger">❤️ Favorite</button>
+                    </form>
+                </div>
+
+                <!-- Hidden content for modal -->
+                <div class="d-none full-recipe-content">
+                    @* <div style="width: 300px; height: 200px"> *@
+                    <img src="@Url.Content("~/" + recipe.Img)" alt="@recipe.Name" class="img-fluid mb-3" style="width:100vw"/>
+                    @* </div> *@
+                    <h3>@recipe.Name</h3>
+                    <p><strong>Rating:</strong> ⭐ @recipe.Rating / 5</p>
+                    <p>@recipe.Description</p>
+
+                    <h4 style="color:#ff7047">Ingredients</h4>
+                    <ul>
+                        @foreach (var ing in recipe.Ingredients)
+                        {
+                            <li>@ing</li>
+                        }
+                    </ul>
+
+                    <h4 style="color:#ff7047">Instructions</h4>
+                    <ol>
+                        @foreach (var step in recipe.Instructions)
+                        {
+                            <li>@step</li>
+                        }
+                    </ol>
+
+                    @if (recipe.Nutrition != null)
+                    {
+                        <h4 style="color:#ff7047">Nutrition</h4>
+                        <ul>
+                            <li>Calories: @recipe.Nutrition.Calories</li>
+                            <li>Protein: @recipe.Nutrition.Protein</li>
+                            <li>Carbs: @recipe.Nutrition.Carbs</li>
+                            <li>Fat: @recipe.Nutrition.Fat</li>
+                        </ul>
+                    }
+
+                    <div class="bottom-buttons mt-3">
+                        <form asp-action="AddToSaved" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@recipe.Id" />
+                            <button type="submit" class="btn btn-sm btn-outline-primary">💾 Save</button>
+                        </form>
+
+                        <form asp-action="AddToFavorite" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@recipe.Id" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">❤️ Favorite</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<!-- 🔍 Modal -->
+<div id="modalOverlay" class="modal-overlay"></div>
+<div id="recipeModal" class="recipe-modal">
+    <button id="closeModal" class="btn-close-red">&times;</button>
+    <div id="modalContent" class="modal-inner"></div>
+</div>
+
+<!-- 🎨 Modal & Style -->
+<style>
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1000;
+        display: none;
+    }
+
+    .recipe-modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        z-index: 1001;
+        max-width: 800px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 12px;
+        padding: 30px;
+        display: none;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    .modal-inner {
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .btn-close-red {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 2rem;
+        background: none;
+        border: none;
+        color: red;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 2056;
+    }
+
+    .recipe-card {
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+        .recipe-card:hover {
+            transform: scale(1.01);
+        }
+
+    .full-recipe-content ul,
+    .full-recipe-content ol {
+        padding-left: 20px;
+    }
+
+    .d-none {
+        display: none !important;
+    }
+
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .rating {
+        font-size: 1.1rem;
+        color: #ffc107;
+    }
+</style>
+
+<!-- 🧠 Script -->
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('recipeModal');
+        const overlay = document.getElementById('modalOverlay');
+        const closeModal = document.getElementById('closeModal');
+        const modalContent = document.getElementById('modalContent');
+
+        document.querySelectorAll('.recipe-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Prevent button/form clicks from opening modal
+                if (e.target.tagName === 'BUTTON' || e.target.closest('form')) return;
+
+                const fullContent = card.querySelector('.full-recipe-content');
+                if (fullContent) {
+                    modalContent.innerHTML = fullContent.innerHTML;
+                    modal.style.display = 'block';
+                    overlay.style.display = 'block';
+                }
+            });
+        });
+
+        const hideModal = () => {
+            modal.style.display = 'none';
+            overlay.style.display = 'none';
+            modalContent.innerHTML = '';
+        };
+
+        closeModal.addEventListener('click', hideModal);
+        overlay.addEventListener('click', hideModal);
+    });
+</script>

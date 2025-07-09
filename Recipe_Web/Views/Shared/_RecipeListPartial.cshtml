@@ -1,0 +1,47 @@
+﻿@* @model List<Food_Recipe.Models.Recipe>
+
+@foreach (var recipe in Model)
+{
+    <div class="recipe-card">
+        <h3>@recipe.Name</h3>
+        <img src="@recipe.Img" alt="@recipe.Name" width="400" />
+        <p>@recipe.Description</p>
+        <p>⭐ @recipe.Rating / 5</p>
+
+        <h4>Ingredients</h4>
+        <ul>
+            @foreach (var item in recipe.Ingredients)
+            {
+                <li>@item</li>
+            }
+        </ul>
+
+        <h4>Instructions</h4>
+        <ol>
+            @foreach (var step in recipe.Instructions)
+            {
+                <li>@step</li>
+            }
+        </ol>
+
+        @if (ViewData["Title"]?.ToString() == "My Recipes")
+        {
+            <form asp-action="DeleteMyRecipe" method="post">
+                <input type="hidden" name="name" value="@recipe.Name" />
+                <button type="submit">Delete</button>
+            </form>
+        }
+        else
+        {
+            <form asp-action="AddToFavorite" method="post">
+                <input type="hidden" name="name" value="@recipe.Name" />
+                <button type="submit">Favorite</button>
+            </form>
+
+            <form asp-action="AddToSaved" method="post">
+                <input type="hidden" name="name" value="@recipe.Name" />
+                <button type="submit">Save</button>
+            </form>
+        }
+    </div>
+} *@

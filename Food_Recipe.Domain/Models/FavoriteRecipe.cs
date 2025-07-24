@@ -8,5 +8,7 @@ public class FavoriteRecipe
 
     public int RecipeId { get; set; }
 
+    public string RecipeName { get; set; } = string.Empty;
+
     public DateTime FavoritedAt { get; set; } = DateTime.Now;
 }

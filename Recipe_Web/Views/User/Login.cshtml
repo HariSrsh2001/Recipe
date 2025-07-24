@@ -58,10 +58,15 @@
         <h6 class="welcome-heading">Welcome To Delicious Food Recipe Website</h6>
 
         @* Show success message after registration *@
-        @if (TempData["Message"] != null)
+        @* @if (TempData["Message"] != null)
         {
             <div  class="alert alert-success">@TempData["Message"]</div>
+        } *@
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">@TempData["Success"]</div>
         }
+
 
         <form asp-action="Login" method="post">
             <input name="input" placeholder="Email or Username" class="form-control" required />

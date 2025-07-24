@@ -26,6 +26,11 @@ public class AdminService : IAdminService
         if (r == null || r.IsApproved) return false;
 
         r.Name = form.Name;
+        if (!string.IsNullOrEmpty(form.Img))
+        {
+            r.Img = form.Img;
+        }
+       
         r.Category = form.Category;
         r.Description = form.Description;
         r.Ingredients = form.Ingredients;

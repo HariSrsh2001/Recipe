@@ -6,7 +6,7 @@ using Food_Recipe.Services.Interfaces;
 using System.Threading.Tasks;
 using System;
 
-namespace Food_Recipe.Controllers
+namespace Recipe_Web.Controllers
 {
     public class UserController : Controller
     {
@@ -23,11 +23,9 @@ namespace Food_Recipe.Controllers
 
         // ---------- Register ----------
         [HttpGet]
-        //Show the Register Page
         public IActionResult Register() => View();
 
         [HttpPost]
-            //Handle Registration Submission
         public async Task<IActionResult> Register(User user)
         {
             if (!ModelState.IsValid)
@@ -58,6 +56,7 @@ namespace Food_Recipe.Controllers
             if (input == "admin" && password == "Admin@2025")
             {
                 HttpContext.Session.SetString("Username", "admin");
+                HttpContext.Session.SetString("IsAdmin", "true");
                 return RedirectToAction("Dashboard", "Admin");
             }
 
@@ -69,6 +68,7 @@ namespace Food_Recipe.Controllers
             }
 
             HttpContext.Session.SetString("Username", user.Username);
+            HttpContext.Session.SetString("IsAdmin", "false");
             TempData["Welcome"] = $"Welcome, {user.Username}!";
             return RedirectToAction("All", "Home");
         }
@@ -80,21 +80,21 @@ namespace Food_Recipe.Controllers
             return RedirectToAction("Login");
         }
 
-        
-
         // ---------- Submit Recipe ----------
         [HttpPost]
         public IActionResult SubmitRecipe(IFormFile imageFile, string Name, string Category,
                                           string Ingredients, string Instructions, int Rating,
                                           string Description)
         {
-            var user = HttpContext.Session.GetString("Username") ;
-            //if (user == "Guest")
-            //    return RedirectToAction("Login");
+            var user = HttpContext.Session.GetString("Username");
+            if (string.IsNullOrEmpty(user))
+            {
+                TempData["Error"] = "You must be logged in to submit a recipe.";
+                return RedirectToAction("Login");
+            }
 
             var imgUrl = _recipes.SaveImage(imageFile, _env.WebRootPath);
 
-            //creates a PendingUserRecipe object and submits it for approval.
             _recipes.SubmitUserRecipe(new PendingUserRecipe
             {
                 Username = user,

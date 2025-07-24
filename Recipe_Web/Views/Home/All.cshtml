@@ -259,41 +259,55 @@
 
 <!-- 🧠 Script -->
 <script>
+    // Wait until the entire page is fully loaded
     window.addEventListener('DOMContentLoaded', () => {
+
+        // Get the welcome message element by its ID
         const msg = document.getElementById('welcomeMessage');
+
+        // If the welcome message exists, show it and hide after 3 seconds
         if (msg) {
-            msg.style.display = 'inline';
+            msg.style.display = 'inline'; // Show message
             setTimeout(() => {
-                msg.style.display = 'none';
+                msg.style.display = 'none'; // Hide after 3 seconds
             }, 3000);
         }
 
-        const modal = document.getElementById('recipeModal');
-        const overlay = document.getElementById('modalOverlay');
-        const closeModal = document.getElementById('closeModal');
-        const modalContent = document.getElementById('modalContent');
+        // Get modal-related elements
+        const modal = document.getElementById('recipeModal');        // Modal container
+        const overlay = document.getElementById('modalOverlay');     // Background overlay
+        const closeModal = document.getElementById('closeModal');    // 'X' close button
+        const modalContent = document.getElementById('modalContent'); // Content area in modal
 
+        // For each recipe card on the page
         document.querySelectorAll('.recipe-card').forEach(card => {
             card.addEventListener('click', (e) => {
-                // Prevent form clicks from triggering modal
+                // Prevent button clicks (e.g., delete, edit) from opening modal
                 if (e.target.tagName === 'BUTTON') return;
 
+                // Get the hidden full content inside the card
                 const fullContent = card.querySelector('.full-recipe-content');
+
+                // If full content exists, insert it into the modal and show the modal
                 if (fullContent) {
                     modalContent.innerHTML = fullContent.innerHTML;
-                    modal.style.display = 'block';
-                    overlay.style.display = 'block';
+                    modal.style.display = 'block';   // Show modal
+                    overlay.style.display = 'block'; // Show overlay
                 }
             });
         });
 
+        // Define a function to hide the modal
         const hideModal = () => {
-            modal.style.display = 'none';
-            overlay.style.display = 'none';
-            modalContent.innerHTML = '';
+            modal.style.display = 'none';           // Hide modal
+            overlay.style.display = 'none';         // Hide overlay
+            modalContent.innerHTML = '';            // Clear modal content
         };
 
+        // Add click event to close button and overlay to hide modal when clicked
         closeModal.addEventListener('click', hideModal);
         overlay.addEventListener('click', hideModal);
     });
 </script>
+
+

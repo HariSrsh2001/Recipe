@@ -7,11 +7,25 @@
 
 <h2>Edit Your Recipe</h2>
 
-<form asp-action="EditRecipe" method="post">
+<form asp-action="EditRecipe" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Id" />
 
     <label>Name</label>
     <input asp-for="Name" class="form-control" />
+
+    <label>Current Image:</label><br />
+    @if (!string.IsNullOrEmpty(Model.Img))
+    {
+        <img src="@Model.Img" alt="Recipe Image" width="200" class="mb-3" />
+    }
+    else
+    {
+        <p>No image available.</p>
+    }
+
+    @* <label>Upload New Image (optional):</label> *@
+    <input type="file" name="imageFile" class="form-control" />
+
 
     <label>Category</label>
     <select asp-for="Category" class="form-control">

@@ -7,17 +7,28 @@
 
 <h2>Edit Your Recipe</h2>
 
-<form asp-action="EditRecipe" method="post">
+<form asp-action="EditRecipe" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Id" />
 
     <label>Name</label>
     <input asp-for="Name" class="form-control" />
 
+    @* @if (!string.IsNullOrEmpty(Model.Img))
+    {
+        <div class="mb-3">
+            <label>Current Image:</label><br />
+            <img src="@Model.Img" alt="Recipe Image" style="max-height:200px; border-radius:8px;" />
+        </div>
+    } *@
+
+    <label>Upload New Image</label>
+    <input type="file" name="imageFile" class="form-control" />
+
     <label>Category</label>
     <select asp-for="Category" class="form-control">
-        <option value="veg">Veg</option>
-        <option value="nonveg">Non-Veg</option>
-        <option value="beverages">Beverages</option>
+        <option value="veg" selected="@("veg" == Model.Category)">Veg</option>
+        <option value="nonveg" selected="@("nonveg" == Model.Category)">Non-Veg</option>
+        <option value="beverages" selected="@("beverages" == Model.Category)">Beverages</option>
     </select>
 
     <label>Description</label>
@@ -34,7 +45,7 @@
 
     <br />
     <button type="submit" class="btn btn-primary">Save Changes</button>
-   
+
     @if (User.Identity?.Name != "admin")
     {
         <a asp-controller="Admin" asp-action="Dashboard" asp-route-status="pending" class="btn btn-secondary">Cancel</a>
@@ -43,5 +54,4 @@
     {
         <a asp-controller="Home" asp-action="MyRecipes" class="btn btn-secondary">Cancel</a>
     }
-
 </form>
